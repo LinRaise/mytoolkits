@@ -30,11 +30,11 @@ namespace FunctxParser
         static void Main(string[] args)
         {
             string[] funcListUrls = {
-                                        "http://www.xqueryfunctions.com/xq/c0008.html",
-                                        "http://www.xqueryfunctions.com/xq/c0011.html",
-                                        "http://www.xqueryfunctions.com/xq/c0002.html",
-                                        "http://www.xqueryfunctions.com/xq/c0013.html",
-                                        "http://www.xqueryfunctions.com/xq/c0015.html",
+                                        //"http://www.xqueryfunctions.com/xq/c0008.html",
+                                        //"http://www.xqueryfunctions.com/xq/c0011.html",
+                                        //"http://www.xqueryfunctions.com/xq/c0002.html",
+                                        //"http://www.xqueryfunctions.com/xq/c0013.html",
+                                        //"http://www.xqueryfunctions.com/xq/c0015.html",
                                         "http://www.xqueryfunctions.com/xq/c0026.html",
                                         "http://www.xqueryfunctions.com/xq/c0033.html",
                                         "http://www.xqueryfunctions.com/xq/c0021.html",
@@ -157,9 +157,9 @@ namespace FunctxParser
             xpath = "//h2[text()='XQuery Function Declaration']/../table[2]/tr[" + declIndex + "]/td/pre";
             node = doc.DocumentNode.SelectSingleNode(xpath);
             Console.WriteLine("\nQuery File Content: ");
-            Console.WriteLine(node.InnerText.Trim());
+            Console.WriteLine(UnescapeXML(node.InnerText.Trim()));
             Console.WriteLine("");
-            qryFile.WriteLine(node.InnerText.Trim());
+            qryFile.WriteLine(UnescapeXML(node.InnerText.Trim()));
             qryFile.WriteLine("");
 
             xpath = "//h2[text()='Examples']/following-sibling::*";
@@ -191,7 +191,6 @@ namespace FunctxParser
 
             xpath = "//h2[text()='Examples']/../table[" + (2 + tableCnt) + "]/tr/td[1]";
             nodes = doc.DocumentNode.SelectNodes(xpath);
-            // 请原谅我放荡不羁的命名，好孩子请不要学我
             string xpath1 = "//h2[text()='Examples']/../table[" + (2 + tableCnt) + "]/tr/td[2]";
             HtmlNodeCollection nodes1 = doc.DocumentNode.SelectNodes(xpath1);
             Console.WriteLine("<o>");
@@ -203,8 +202,8 @@ namespace FunctxParser
                 Console.Write("<e" + i + ">{");
                 qryFile.Write("<e" + i + ">{");
                 refFile.Write("<e" + i + ">");
-                Console.Write(aNode.InnerText.Trim());
-                qryFile.Write(aNode.InnerText.Trim());
+                Console.Write(UnescapeXML(aNode.InnerText.Trim()));
+                qryFile.Write(UnescapeXML(aNode.InnerText.Trim()));
                 refFile.Write(nodes1.ElementAt(i - 1).InnerText.Trim());
                 Console.WriteLine("}</e" + i + ">");
                 qryFile.WriteLine("}</e" + i + ">");
