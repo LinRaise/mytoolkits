@@ -32,11 +32,31 @@ void test3()
     assert(arr1[3] == 0x34);
 }
 
+void test4()
+{
+    try {
+        ByteArray arr("XF");
+        assert(false);
+    } catch (std::string& e) {
+        assert(e.compare("Invalid hex char") == 0);
+    }
+}
+
+void test5()
+{
+    ByteArray arr("12345678");
+    assert(arr.crc16() == 0x347B);
+    ByteArray arr1("ABC12336dc");
+    assert(arr1.crc16() == 0xD7FF);
+}
+
 int main()
 {
     test1();
     test2();
     test3();
+    test4();
+    test5();
     std::cout << "Unit test all passed." << std::endl;
     std::cout << "Press any key to quit ..."; std::cin.ignore();
     return 0;
