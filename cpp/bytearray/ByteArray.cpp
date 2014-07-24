@@ -95,3 +95,20 @@ UINT_16 ByteArray::crc16() const
 {
     return gen_crc16(&m_vec[0], m_vec.size());
 }
+
+ByteArray& ByteArray::append(const UINT_16 val)
+{
+    m_vec.push_back( static_cast<BYTE> (val >> 8) );
+    m_vec.push_back( static_cast<BYTE> (val & 0xFF) );
+    return *this;
+}
+
+UINT_8 ByteArray::checksum() const
+{
+    UINT_8 sum = 0;
+    for(std::size_t i = 0, s = m_vec.size(); i < s; ++i)
+    {
+        sum += m_vec[i];
+    }
+    return static_cast<UINT_8> ( ((~sum) + 1) & 0xFF );
+}

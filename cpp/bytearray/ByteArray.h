@@ -27,6 +27,9 @@ public:
     std::size_t word_size() const                       { return align(size(), 2) / 2; }
     std::size_t dword_size() const                      { return align(size(), 4) / 4; }
     ByteArray& append(const ByteArray& data)            { m_vec.insert(m_vec.end(), data.m_vec.begin(), data.m_vec.end()); return *this; }
+    ByteArray& append(const UINT_16 val);
+    ByteArray& append(const UINT_8 val)                 { m_vec.push_back(val); return *this; }
+    UINT_8 checksum() const;
     UINT_16 crc16() const;
 
     /* only to be used to align on a power of 2 boundary */

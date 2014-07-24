@@ -46,8 +46,12 @@ void test5()
 {
     ByteArray arr("12345678");
     assert(arr.crc16() == 0x347B);
+    assert(arr.checksum() == 236);
     ByteArray arr1("ABC12336dc");
-    assert(arr1.crc16() == 0xD7FF);
+    UINT_16 crc = arr1.crc16();
+    assert(crc == 0xD7FF);
+    arr1.append(crc);
+    assert(arr1.as_string().compare("ABC12336DCD7FF") == 0);
 }
 
 int main()
